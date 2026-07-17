@@ -1,0 +1,37 @@
+{
+	"name": "backend",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsc",
+		"format": "pnpx @biomejs/biome format --write",
+		"lint": "pnpx @biomejs/biome lint --write",
+		"start:dev": "tsx --watch ./src/bootstrap.ts ",
+		"start:prod": "node ",
+		"test:unit": "",
+		"test:api": "",
+		"test:e2e": "",
+		"db:seed": ""
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "module",
+	"dependencies": {
+		"@libsql/client": "^0.17.4",
+		"drizzle-orm": "1.0.0-rc.4",
+		"express": "^5.2.1",
+		"pg": "^8.22.0",
+		"typescript": "^7.0.2",
+		"winston": "^3.19.0",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.6",
+		"@types/node": "^26.1.1",
+		"@types/pg": "^8.20.0",
+		"drizzle-kit": "1.0.0-rc.4",
+		"tsx": "^4.23.1"
+	}
+}
