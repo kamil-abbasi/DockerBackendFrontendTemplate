@@ -6,8 +6,6 @@ import type { IocContainer, ServiceIdentifier } from "@tsoa/runtime";
 import { AuthController } from "./auth/controller";
 import { TokenService } from "./auth/tokens";
 import { UsersController } from "./users/controller";
-import { Task } from "./tasks/model";
-import { TasksController } from "./tasks/controller";
 
 /**
  * Any tsoa controller class. `never[]` args keep it assignable from
@@ -39,11 +37,9 @@ export class Container implements IocContainer {
     this.tokens = new TokenService(env);
 
     User.setDb(this.db);
-    Task.setDb(this.db);
 
     this.register(AuthController, new AuthController(this.tokens));
     this.register(UsersController, new UsersController());
-    this.register(TasksController, new TasksController());
   }
 
   /**
