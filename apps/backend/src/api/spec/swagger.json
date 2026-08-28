@@ -1,0 +1,820 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"BaseResponse": {
+				"properties": {
+					"timestamp": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"timestamp"
+				],
+				"type": "object"
+			},
+			"UserDto": {
+				"properties": {
+					"updatedAt": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"pictureUrl": {
+						"type": "string"
+					},
+					"fullName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"createdAt",
+					"username",
+					"id"
+				],
+				"type": "object"
+			},
+			"SuccessResponse_UserDto_": {
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/UserDto"
+					},
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"success"
+				],
+				"type": "object"
+			},
+			"HttpStatus": {
+				"enum": [
+					404,
+					400,
+					401,
+					403,
+					409,
+					500,
+					200,
+					201
+				],
+				"type": "number"
+			},
+			"ErrorResponse": {
+				"properties": {
+					"error": {
+						"properties": {
+							"details": {},
+							"apiCode": {
+								"type": "string"
+							},
+							"httpStatus": {
+								"$ref": "#/components/schemas/HttpStatus"
+							},
+							"message": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"httpStatus",
+							"message"
+						],
+						"type": "object"
+					},
+					"success": {
+						"type": "boolean",
+						"enum": [
+							false
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"error",
+					"success"
+				],
+				"type": "object"
+			},
+			"ApiResponse_UserDto_": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BaseResponse"
+					},
+					{
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/SuccessResponse_UserDto_"
+							},
+							{
+								"$ref": "#/components/schemas/ErrorResponse"
+							}
+						]
+					}
+				]
+			},
+			"TaskStatus": {
+				"type": "string",
+				"enum": [
+					"todo",
+					"in_progress",
+					"done"
+				]
+			},
+			"TaskDto": {
+				"properties": {
+					"updatedAt": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"dueDate": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/TaskStatus"
+					},
+					"description": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"createdAt",
+					"status",
+					"title",
+					"userId",
+					"id"
+				],
+				"type": "object"
+			},
+			"TaskListDto": {
+				"properties": {
+					"offset": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/TaskDto"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"offset",
+					"limit",
+					"items"
+				],
+				"type": "object"
+			},
+			"SuccessResponse_TaskListDto_": {
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/TaskListDto"
+					},
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"success"
+				],
+				"type": "object"
+			},
+			"ApiResponse_TaskListDto_": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BaseResponse"
+					},
+					{
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/SuccessResponse_TaskListDto_"
+							},
+							{
+								"$ref": "#/components/schemas/ErrorResponse"
+							}
+						]
+					}
+				]
+			},
+			"SuccessResponse_TaskDto_": {
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/TaskDto"
+					},
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"success"
+				],
+				"type": "object"
+			},
+			"ApiResponse_TaskDto_": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BaseResponse"
+					},
+					{
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/SuccessResponse_TaskDto_"
+							},
+							{
+								"$ref": "#/components/schemas/ErrorResponse"
+							}
+						]
+					}
+				]
+			},
+			"infer_typeofcreateTaskSchema_": {
+				"properties": {
+					"dueDate": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"todo",
+							"in_progress",
+							"done"
+						]
+					},
+					"description": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"title"
+				],
+				"type": "object"
+			},
+			"CreateTaskDto": {
+				"$ref": "#/components/schemas/infer_typeofcreateTaskSchema_"
+			},
+			"infer_typeofupdateTaskSchema_": {
+				"properties": {
+					"dueDate": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"todo",
+							"in_progress",
+							"done"
+						]
+					},
+					"description": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"type": "object"
+			},
+			"UpdateTaskDto": {
+				"$ref": "#/components/schemas/infer_typeofupdateTaskSchema_"
+			},
+			"TaskDeletedDto": {
+				"properties": {
+					"deletedAt": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"deletedAt",
+					"id"
+				],
+				"type": "object"
+			},
+			"SuccessResponse_TaskDeletedDto_": {
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/TaskDeletedDto"
+					},
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"success"
+				],
+				"type": "object"
+			},
+			"ApiResponse_TaskDeletedDto_": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BaseResponse"
+					},
+					{
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/SuccessResponse_TaskDeletedDto_"
+							},
+							{
+								"$ref": "#/components/schemas/ErrorResponse"
+							}
+						]
+					}
+				]
+			},
+			"SingupResponseDto": {
+				"properties": {
+					"createdAt": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"createdAt",
+					"userId"
+				],
+				"type": "object"
+			},
+			"SuccessResponse_SingupResponseDto_": {
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/SingupResponseDto"
+					},
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"success"
+				],
+				"type": "object"
+			},
+			"ApiResponse_SingupResponseDto_": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BaseResponse"
+					},
+					{
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/SuccessResponse_SingupResponseDto_"
+							},
+							{
+								"$ref": "#/components/schemas/ErrorResponse"
+							}
+						]
+					}
+				]
+			},
+			"infer_typeofsignupSchema_": {
+				"properties": {
+					"repeatedPassword": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"repeatedPassword",
+					"password",
+					"username"
+				],
+				"type": "object"
+			},
+			"SignupDto": {
+				"$ref": "#/components/schemas/infer_typeofsignupSchema_"
+			},
+			"LoginResponseDto": {
+				"properties": {
+					"loggedInAt": {
+						"type": "string"
+					},
+					"refreshToken": {
+						"type": "string"
+					},
+					"accessToken": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"loggedInAt",
+					"accessToken",
+					"userId"
+				],
+				"type": "object"
+			},
+			"SuccessResponse_LoginResponseDto_": {
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/LoginResponseDto"
+					},
+					"success": {
+						"type": "boolean",
+						"enum": [
+							true
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"data",
+					"success"
+				],
+				"type": "object"
+			},
+			"ApiResponse_LoginResponseDto_": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BaseResponse"
+					},
+					{
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/SuccessResponse_LoginResponseDto_"
+							},
+							{
+								"$ref": "#/components/schemas/ErrorResponse"
+							}
+						]
+					}
+				]
+			},
+			"infer_typeofloginSchema_": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"username"
+				],
+				"type": "object"
+			},
+			"LoginDto": {
+				"$ref": "#/components/schemas/infer_typeofloginSchema_"
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	},
+	"info": {
+		"title": "backend",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/users/profile": {
+			"get": {
+				"operationId": "GetProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_UserDto_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/tasks": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskListDto_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
+						"schema": {
+							"$ref": "#/components/schemas/TaskStatus"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskDto_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTaskDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tasks/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskDto_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskDto_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateTaskDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Remove",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskDeletedDto_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/auth/signup": {
+			"post": {
+				"operationId": "Signup",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_SingupResponseDto_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SignupDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_LoginResponseDto_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginDto"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

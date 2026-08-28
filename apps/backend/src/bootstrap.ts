@@ -1,23 +1,35 @@
-import express, { type Response } from "express";
+import express, { type Response, type Request } from "express";
+import swaggerUi from "swagger-ui-express";
 
-import { setupEnv } from "@/common/env";
 import middleware from "@/common/middleware";
-
-import { Container } from "./container";
+import { container } from "@/ioc";
+import { RegisterRoutes } from "@/api/spec/routes";
 
 async function bootstrap() {
-  const env = setupEnv();
-  const container = new Container(env);
   const app = express();
 
+  app.use(express.json());
   app.use(middleware.logger(container.logger));
 
-  app.listen(env.PORT, () => {
-    container.logger.info(`Http server is listening on port ${env.PORT}`);
+  app.get("/healthcheck", (_, res) => {
+    res.json({ message: "I'm fine" });
   });
 
-  app.get("healthcheck", (req, res: Response) => {
-    res.json({ message: "I'm fine" });
+  app.use("/docs", swaggerUi.serve, async (_: Request, res: Response) => {
+    return res.send(
+      swaggerUi.generateHTML(await import("./api/spec/swagger.json")),
+    );
+  });
+
+  RegisterRoutes(app);
+
+  app.use(middleware.error(container.logger));
+  app.use(middleware.notFound);
+
+  app.listen(container.env.PORT, () => {
+    container.logger.info(
+      `Http server is listening on port ${container.env.PORT}`,
+    );
   });
 }
 

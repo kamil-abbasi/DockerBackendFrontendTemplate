@@ -1,0 +1,26 @@
+{
+  "entryFile": "src/bootstrap.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/**/controller.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] }
+  },
+  "spec": {
+    "outputDirectory": "src/api/spec",
+    "specVersion": 3,
+    "securityDefinitions": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "rootSecurity": [{ "jwt": [] }]
+  },
+  "routes": {
+    "routesDir": "src/api/spec",
+    "iocModule": "src/ioc",
+    "authenticationModule": "src/auth/middleware"
+  }
+}

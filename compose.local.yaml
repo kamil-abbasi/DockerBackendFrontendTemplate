@@ -19,10 +19,13 @@ services:
       timeout: 30s
       retries: 5
       start_period: 5s
-    
+
     depends_on:
       db:
         condition: service_healthy
+
+    ports:
+      - 3000:3000
 
   ### ----- DATABASE ----- ###
   db:
@@ -32,16 +35,19 @@ services:
       - db-data:/var/lib/postgresql
 
     environment:
-      POSTGRES_USER: 'admin'
-      POSTGRES_PASSWORD: 'admin'
-      POSTGRES_DB: 'iam'
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "planner-db"
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d iam"]
+      test: ["CMD-SHELL", "pg_isready -U admin -d planner-db"]
       interval: 30s
       timeout: 30s
       retries: 5
       start_period: 20s
+
+    ports:
+      - 5432:5432
 
 volumes:
   db-data:
