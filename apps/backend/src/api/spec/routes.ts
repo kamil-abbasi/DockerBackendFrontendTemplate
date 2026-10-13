@@ -6,13 +6,9 @@ import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { UsersController } from './../../users/controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { TasksController } from './../../tasks/controller';
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './../../auth/controller';
 import { expressAuthentication } from './../../auth/middleware';
 // @ts-ignore - no great way to install types from subpackage
-import { iocContainer } from './../../ioc';
-import type { IocContainer, IocContainerFactory } from '@tsoa/runtime';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
 const expressAuthenticationRecasted = expressAuthentication as (req: ExRequest, securityName: string, scopes?: string[], res?: ExResponse) => Promise<any>;
@@ -49,76 +45,6 @@ const models: TsoaRoute.Models = {
     "ApiResponse_UserDto_": {
         "dataType": "refAlias",
         "type": {"dataType":"intersection","subSchemas":[{"ref":"BaseResponse"},{"dataType":"union","subSchemas":[{"ref":"SuccessResponse_UserDto_"},{"ref":"ErrorResponse"}]}],"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "TaskStatus": {
-        "dataType": "refAlias",
-        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["todo"]},{"dataType":"enum","enums":["in_progress"]},{"dataType":"enum","enums":["done"]}],"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "TaskDto": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"updatedAt":{"dataType":"string"},"createdAt":{"dataType":"string","required":true},"dueDate":{"dataType":"string"},"status":{"ref":"TaskStatus","required":true},"description":{"dataType":"string"},"title":{"dataType":"string","required":true},"userId":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "TaskListDto": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"offset":{"dataType":"double","required":true},"limit":{"dataType":"double","required":true},"items":{"dataType":"array","array":{"dataType":"refAlias","ref":"TaskDto"},"required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "SuccessResponse_TaskListDto_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"data":{"ref":"TaskListDto","required":true},"success":{"dataType":"enum","enums":[true],"required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ApiResponse_TaskListDto_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"intersection","subSchemas":[{"ref":"BaseResponse"},{"dataType":"union","subSchemas":[{"ref":"SuccessResponse_TaskListDto_"},{"ref":"ErrorResponse"}]}],"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "SuccessResponse_TaskDto_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"data":{"ref":"TaskDto","required":true},"success":{"dataType":"enum","enums":[true],"required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ApiResponse_TaskDto_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"intersection","subSchemas":[{"ref":"BaseResponse"},{"dataType":"union","subSchemas":[{"ref":"SuccessResponse_TaskDto_"},{"ref":"ErrorResponse"}]}],"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "infer_typeofcreateTaskSchema_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"dueDate":{"dataType":"string"},"status":{"dataType":"union","subSchemas":[{"dataType":"enum","enums":["todo"]},{"dataType":"enum","enums":["in_progress"]},{"dataType":"enum","enums":["done"]}]},"description":{"dataType":"string"},"title":{"dataType":"string","required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "CreateTaskDto": {
-        "dataType": "refAlias",
-        "type": {"ref":"infer_typeofcreateTaskSchema_","validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "infer_typeofupdateTaskSchema_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"dueDate":{"dataType":"string"},"status":{"dataType":"union","subSchemas":[{"dataType":"enum","enums":["todo"]},{"dataType":"enum","enums":["in_progress"]},{"dataType":"enum","enums":["done"]}]},"description":{"dataType":"string"},"title":{"dataType":"string"}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UpdateTaskDto": {
-        "dataType": "refAlias",
-        "type": {"ref":"infer_typeofupdateTaskSchema_","validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "TaskDeletedDto": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"deletedAt":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "SuccessResponse_TaskDeletedDto_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"data":{"ref":"TaskDeletedDto","required":true},"success":{"dataType":"enum","enums":[true],"required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ApiResponse_TaskDeletedDto_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"intersection","subSchemas":[{"ref":"BaseResponse"},{"dataType":"union","subSchemas":[{"ref":"SuccessResponse_TaskDeletedDto_"},{"ref":"ErrorResponse"}]}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "SingupResponseDto": {
@@ -204,203 +130,10 @@ export function RegisterRoutes(app: Router) {
             try {
                 validatedArgs = templateService.getValidatedArgs({ args: argsUsersController_getProfile, request, response });
 
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<UsersController>(UsersController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
+                const controller = new UsersController();
 
               await templateService.apiHandler({
                 methodName: 'getProfile',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: undefined,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsTasksController_list: Record<string, TsoaRoute.ParameterSchema> = {
-                req: {"in":"request","name":"req","required":true,"dataType":"object"},
-                status: {"in":"query","name":"status","ref":"TaskStatus"},
-                limit: {"in":"query","name":"limit","dataType":"double"},
-                offset: {"in":"query","name":"offset","dataType":"double"},
-        };
-        app.get('/tasks',
-            authenticateMiddleware([{"jwt":[]}]),
-            ...(fetchMiddlewares<RequestHandler>(TasksController)),
-            ...(fetchMiddlewares<RequestHandler>(TasksController.prototype.list)),
-
-            async function TasksController_list(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsTasksController_list, request, response });
-
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<TasksController>(TasksController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
-
-              await templateService.apiHandler({
-                methodName: 'list',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: undefined,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsTasksController_getById: Record<string, TsoaRoute.ParameterSchema> = {
-                req: {"in":"request","name":"req","required":true,"dataType":"object"},
-                id: {"in":"path","name":"id","required":true,"dataType":"string"},
-        };
-        app.get('/tasks/:id',
-            authenticateMiddleware([{"jwt":[]}]),
-            ...(fetchMiddlewares<RequestHandler>(TasksController)),
-            ...(fetchMiddlewares<RequestHandler>(TasksController.prototype.getById)),
-
-            async function TasksController_getById(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsTasksController_getById, request, response });
-
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<TasksController>(TasksController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
-
-              await templateService.apiHandler({
-                methodName: 'getById',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: undefined,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsTasksController_create: Record<string, TsoaRoute.ParameterSchema> = {
-                req: {"in":"request","name":"req","required":true,"dataType":"object"},
-                body: {"in":"body","name":"body","required":true,"ref":"CreateTaskDto"},
-        };
-        app.post('/tasks',
-            authenticateMiddleware([{"jwt":[]}]),
-            ...(fetchMiddlewares<RequestHandler>(TasksController)),
-            ...(fetchMiddlewares<RequestHandler>(TasksController.prototype.create)),
-
-            async function TasksController_create(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsTasksController_create, request, response });
-
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<TasksController>(TasksController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
-
-              await templateService.apiHandler({
-                methodName: 'create',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: undefined,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsTasksController_update: Record<string, TsoaRoute.ParameterSchema> = {
-                req: {"in":"request","name":"req","required":true,"dataType":"object"},
-                id: {"in":"path","name":"id","required":true,"dataType":"string"},
-                body: {"in":"body","name":"body","required":true,"ref":"UpdateTaskDto"},
-        };
-        app.patch('/tasks/:id',
-            authenticateMiddleware([{"jwt":[]}]),
-            ...(fetchMiddlewares<RequestHandler>(TasksController)),
-            ...(fetchMiddlewares<RequestHandler>(TasksController.prototype.update)),
-
-            async function TasksController_update(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsTasksController_update, request, response });
-
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<TasksController>(TasksController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
-
-              await templateService.apiHandler({
-                methodName: 'update',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: undefined,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsTasksController_remove: Record<string, TsoaRoute.ParameterSchema> = {
-                req: {"in":"request","name":"req","required":true,"dataType":"object"},
-                id: {"in":"path","name":"id","required":true,"dataType":"string"},
-        };
-        app.delete('/tasks/:id',
-            authenticateMiddleware([{"jwt":[]}]),
-            ...(fetchMiddlewares<RequestHandler>(TasksController)),
-            ...(fetchMiddlewares<RequestHandler>(TasksController.prototype.remove)),
-
-            async function TasksController_remove(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsTasksController_remove, request, response });
-
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<TasksController>(TasksController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
-
-              await templateService.apiHandler({
-                methodName: 'remove',
                 controller,
                 response,
                 next,
@@ -427,12 +160,7 @@ export function RegisterRoutes(app: Router) {
             try {
                 validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_signup, request, response });
 
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<AuthController>(AuthController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
+                const controller = new AuthController();
 
               await templateService.apiHandler({
                 methodName: 'signup',
@@ -462,12 +190,7 @@ export function RegisterRoutes(app: Router) {
             try {
                 validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_login, request, response });
 
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<AuthController>(AuthController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
+                const controller = new AuthController();
 
               await templateService.apiHandler({
                 methodName: 'login',

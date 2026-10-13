@@ -2,7 +2,7 @@ import type { Request } from "express";
 
 import { HttpStatus } from "@/api";
 import { HttpError } from "@/common/error";
-import { container } from "@/ioc";
+import { tokensService } from "@/singletons";
 import type { TokenSubject } from "./tokens";
 
 /** Security scheme names, as declared in `spec.securityDefinitions`. */
@@ -15,8 +15,8 @@ export const SecurityScheme = {
  * scheme. Whatever this resolves with becomes `request.user`; whatever it
  * throws goes to the express error middleware.
  *
- * This is a plain module, so dependencies come from the container directly —
- * no decorator metadata, no service locator.
+ * This is a plain module, so dependencies are imported from `singletons`
+ * directly.
  */
 export async function expressAuthentication(
   request: Request,
@@ -49,5 +49,5 @@ export async function expressAuthentication(
     throw new HttpError(HttpStatus.UNAUTHORIZED, "missing token");
   }
 
-  return container.tokens.verify(token);
+  return tokensService.verify(token);
 }

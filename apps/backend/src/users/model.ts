@@ -1,8 +1,10 @@
-import { schemas, type Database } from "@/common/db";
+import { Database, schemas } from "@/common/db";
+import { db } from "@/singletons";
 import { eq } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
 import type { UserDto } from "./dtos";
 import type { DbUser } from "@/common/db/schemas";
+import { Model } from "@/common/model";
 
 export type UserProps = {
   id: string;
@@ -20,16 +22,11 @@ export type UpdateUserProps = Partial<
   Omit<UserProps, "id" | "createdAt" | "updatedAt" | "hashedPassword">
 >;
 
-export class User {
-  private static db: Database;
-
-  public static setDb(db: Database) {
-    User.db = db;
-  }
-
+export class User extends Model {
   private props: UserProps;
 
   constructor(props: UserProps) {
+    super();
     this.props = props;
   }
 

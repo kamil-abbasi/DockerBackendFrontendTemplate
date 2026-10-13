@@ -20,7 +20,6 @@
   },
   "routes": {
     "routesDir": "src/api/spec",
-    "iocModule": "src/ioc",
     "authenticationModule": "src/auth/middleware"
   }
 }

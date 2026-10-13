@@ -9,16 +9,12 @@ import type {
 import { Body, Middlewares, NoSecurity, Post, Route } from "tsoa";
 import { User } from "@/users/model";
 import argon2 from "argon2";
-import type { TokenService } from "./tokens";
+import { tokensService } from "@/singletons";
 import { validate } from "@/common/middleware";
 import { loginSchema, signupSchema } from "./schemas";
 
 @Route("auth")
 export class AuthController extends Controller {
-  constructor(private readonly tokens: TokenService) {
-    super();
-  }
-
   @NoSecurity()
   @Middlewares(validate({ body: signupSchema }))
   @Post("signup")
@@ -80,7 +76,7 @@ export class AuthController extends Controller {
     return this.sendSuccess({
       userId: user.id,
       loggedInAt: new Date().toISOString(),
-      accessToken: this.tokens.sign({ id: user.id }),
+      accessToken: tokensService.sign(user.id),
     });
   }
 }

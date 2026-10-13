@@ -4,36 +4,28 @@ import { readFileSync } from "node:fs";
 
 import { HttpStatus } from "@/api";
 import { HttpError } from "@/common/error";
-import type { Env } from "@/common";
+import { env } from "@/singletons";
 
 const ALGORITHM = "RS256" as const;
 
-export type TokenSubject = {
-  id: string;
-};
-
-/**
- * Signs and verifies access tokens. Owned by the container, so the key pair is
- * read from disk once at startup instead of on every request.
- */
 export class TokenService {
   private readonly privateKey: Buffer;
   private readonly publicKey: Buffer;
 
-  constructor(env: Env) {
+  constructor() {
     this.privateKey = readFileSync(env.JWT_PRIVATE_KEY_PATH);
     this.publicKey = readFileSync(env.JWT_PUBLIC_KEY_PATH);
   }
 
-  sign(subject: TokenSubject): string {
+  sign(subject: string): string {
     return jwt.sign({}, this.privateKey, {
       algorithm: ALGORITHM,
-      subject: subject.id,
+      subject: subject,
     });
   }
 
   /** Throws `HttpError` when the token is missing, malformed or expired. */
-  verify(token: string): TokenSubject {
+  verify(token: string): string {
     let payload: JwtPayload;
 
     try {
@@ -56,6 +48,6 @@ export class TokenService {
       );
     }
 
-    return { id: payload.sub };
+    return payload.sub;
   }
 }
